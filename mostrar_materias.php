@@ -1,4 +1,5 @@
 <?php
+include_once "conexion.php";
 include_once "encabezado.php";
 include_once "Materia.php";
 $materias = Materia::obtener();

@@ -1,5 +1,4 @@
 <?php
-$mysqli = require_once "conexion.php";
 class Estudiante
 {
     private $nombre, $grupo, $id;

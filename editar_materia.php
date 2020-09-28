@@ -1,4 +1,5 @@
 <?php
+include_once "conexion.php";
 include_once "Materia.php";
 include_once "encabezado.php";
 $materia = Materia::obtenerUna($_GET["id"]);

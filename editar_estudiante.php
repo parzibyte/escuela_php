@@ -1,4 +1,5 @@
 <?php
+include_once "conexion.php";
 include_once "Estudiante.php";
 include_once "encabezado.php";
 $estudiante = Estudiante::obtenerUno($_GET["id"]);

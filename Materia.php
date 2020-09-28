@@ -1,5 +1,4 @@
 <?php
-$mysqli = require_once "conexion.php";
 class Materia
 {
     private $nombre, $id;
