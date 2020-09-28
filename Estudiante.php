@@ -2,12 +2,15 @@
 $mysqli = require_once "conexion.php";
 class Estudiante
 {
-    private $nombre, $grupo;
+    private $nombre, $grupo, $id;
 
-    public function __construct($nombre, $grupo)
+    public function __construct($nombre, $grupo, $id = null)
     {
         $this->nombre = $nombre;
         $this->grupo = $grupo;
+        if ($id) {
+            $this->id = $id;
+        }
     }
 
     public function guardar()
@@ -26,5 +29,29 @@ class Estudiante
         global $mysqli;
         $resultado = $mysqli->query("SELECT id, nombre, grupo FROM estudiantes");
         return $resultado->fetch_all(MYSQLI_ASSOC);
+    }
+    public static function obtenerUno($id)
+    {
+        global $mysqli;
+        $sentencia = $mysqli->prepare("SELECT id, nombre, grupo FROM estudiantes WHERE id = ?");
+        $sentencia->bind_param("i", $id);
+        $sentencia->execute();
+        $resultado = $sentencia->get_result();
+        return $resultado->fetch_object();
+    }
+    public function actualizar()
+    {
+        global $mysqli;
+        $sentencia = $mysqli->prepare("update estudiantes set nombre = ?, grupo = ? where id = ?");
+        $sentencia->bind_param("ssi", $this->nombre, $this->grupo, $this->id);
+        $sentencia->execute();
+    }
+
+    public static function eliminar($id)
+    {
+        global $mysqli;
+        $sentencia = $mysqli->prepare("DELETE FROM estudiantes WHERE id = ?");
+        $sentencia->bind_param("i", $id);
+        $sentencia->execute();
     }
 }
